@@ -2,8 +2,6 @@ import java.util.Scanner;
 
 public class Character {
 
-    Scanner sc = new Scanner(System.in);
-
     public int HP;
     public int strenght;
     public int luck;
