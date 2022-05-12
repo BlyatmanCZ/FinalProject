@@ -17,7 +17,16 @@ import java.util.ArrayList;
                 String name = sc.next();
                 System.out.println("Welcome, " + name);
 
+                System.out.println("\nChoose your character:");
 
+                System.out.println("1) Soldier - Att 10, HP 10, Luck 10");
+                System.out.println("2) Scientist - Att 8, HP 8, Luck 15 ");
+                System.out.println("3) Juggernaut - Att 15, HP 15, Luck 5");
+
+                int choice = sc.nextInt(); //try catch
+
+                Character ch = new Character(0,0,0);
+                ch.charChoice(choice);
 
             }
         }
