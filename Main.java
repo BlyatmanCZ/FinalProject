@@ -28,5 +28,6 @@ import java.util.ArrayList;
                 Character ch = new Character(0,0,0);
                 ch.charChoice(choice);
 
+
             }
         }

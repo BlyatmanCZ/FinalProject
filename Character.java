@@ -58,6 +58,7 @@ public class Character {
                 setLuck(5);
                 System.out.println("You successfully chose Juggernaut as your character");
                 break;
+
         }
     }
 }
