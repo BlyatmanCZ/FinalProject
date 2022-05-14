@@ -36,25 +36,25 @@ public class Character {
         this.luck = luck;
     }
 
-    public void charChoice(int choice) {
+    public void charChoice(int choice) {   //Nastavi hodnoty charakteru podle vyberu
         switch (choice) {
             case 1:
                 setHP(10);
                 setStrenght(10);
                 setLuck(10);
-                System.out.println("You successfully chose Soldier as your character");
+                System.out.println("You have successfully chosen Soldier as your character");
                 break;
             case 2:
                 setHP(8);
                 setStrenght(8);
                 setLuck(15);
-                System.out.println("You successfully chose Scientist as your character");
+                System.out.println("You have successfully chosen Scientist as your character");
                 break;
             case 3:
                 setHP(15);
                 setStrenght(15);
                 setLuck(5);
-                System.out.println("You successfully chose Juggernaut as your character");
+                System.out.println("You have successfully chosen Juggernaut as your character");
                 break;
 
         }

@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 
                 System.out.println("                                      --------- SPACEVENTURES ---------");
                 System.out.println("Your galaxy was invaded by evil aliens and you will have to save as many planets as you can to help restore the peace. ");
-
 
                 System.out.println("\nEnter your name:");
                 String name = sc.next();
@@ -28,6 +28,16 @@ import java.util.ArrayList;
                 Character ch = new Character(0,0,0);
                 ch.charChoice(choice);
 
+                System.out.println("\nYour journey begins");
+                System.out.println("Save as many planets as you can!\n-----------------------------");
+
+                while(ch.HP > 0) {
+                    System.out.println("\nYou have arrived on the planet " + Planet.randomPlName());
+                    System.out.println(Planet.randomPlDesc());
+
+
+                    ch.setHP(0);
+                }
 
             }
         }
