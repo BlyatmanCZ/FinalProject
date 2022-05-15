@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Character {
 
-    public int HP;
-    public int strenght;
-    public int luck;
+    protected int HP;
+    protected int strenght;
+    protected int luck;
 
     public int getHP() {
         return HP;
@@ -34,6 +34,11 @@ public class Character {
         this.HP = HP;
         this.strenght = strenght;
         this.luck = luck;
+    }
+
+    public Character(int HP, int strenght) {
+        this.HP = HP;
+        this.strenght = strenght;
     }
 
     public void charChoice(int choice) {   //Nastavi hodnoty charakteru podle vyberu

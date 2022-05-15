@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
                 System.out.println("2) Scientist - Att 8, HP 8, Luck 15 ");
                 System.out.println("3) Juggernaut - Att 15, HP 15, Luck 5");
 
-                int choice = sc.nextInt(); //try catch
+                int choice = sc.nextInt(); //add try catch
 
                 Character ch = new Character(0,0,0);
                 ch.charChoice(choice);
@@ -34,10 +33,37 @@ import java.util.ArrayList;
                 while(ch.HP > 0) {
                     System.out.println("\nYou have arrived on the planet " + Planet.randomPlName());
                     System.out.println(Planet.randomPlDesc());
-
-
-                    ch.setHP(0);
+                    System.out.println("You decide to explore the planet.");
+                    boolean N = true;
+                    boolean S = true;
+                    boolean E = true;
+                    boolean W = true;
+                    for(int i = 0; i < 4; i++) {
+                        Planet.direction(N,S,E,W);
+                        int choice2 = sc.nextInt();
+                        switch(choice2){
+                            case 1:
+                                N = false;
+                                System.out.println("You have decided to go north.");
+                                break;
+                            case 2:
+                                S = false;
+                                System.out.println("You have decided to go south.");
+                                break;
+                            case 3:
+                                E = false;
+                                System.out.println("You have decided to go east.");
+                                break;
+                            case 4:
+                                W = false;
+                                System.out.println("You have decided to go west.");
+                                break;
+                        }
+                        System.out.println("\nAfter some time, you discover " + Planet.randomPlace());
+                        System.out.println("You decide to explore this place.");
+                        System.out.println("You see a enemy " + " in the wild ");
+                    }
+                    ch.setHP(0); //temp
                 }
-
             }
         }

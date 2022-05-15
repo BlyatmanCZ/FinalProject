@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class Planet {
@@ -32,5 +31,33 @@ public class Planet {
     static String randomPlDesc() {   //Vybere nahodny popis planety z pole Stringu
         int randomNum2 = rn.nextInt(planetDesc.length);
         return planetDesc[randomNum2];
+    }
+
+    static void direction(boolean N, boolean S, boolean E, boolean W) { //Vymaze z vyberu ty smery, ktere hrac jiz prozkoumal
+        String North = "1) North, ";
+        String South = "2) South, ";
+        String East = "3) East, ";
+        String West = "4) West";
+
+        if(!N){
+            North = "";
+        }if(!S) {
+            South = "";
+        }if(!E) {
+            East = "";
+        }if(!W) {
+            West = "";
+        }
+
+        System.out.println("\nYou have a choice to go:");
+        System.out.println(North + South + East + West);
+        System.out.println("Which direction are you going?");
+    }
+
+    static String[] places = {"a temple", "a crashed spaceship", "city ruins", "a hostile watchtower"};
+
+    static String randomPlace() {   //Vybere nahodnou lokaci z pole Stringu
+        int randomNum3 = rn.nextInt(places.length);
+        return places[randomNum3];
     }
 }
