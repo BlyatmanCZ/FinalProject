@@ -10,7 +10,7 @@ import java.util.ArrayList;
                 Scanner sc = new Scanner(System.in);
 
                 System.out.println("                                      --------- SPACEVENTURES ---------");
-                System.out.println("Your galaxy was invaded by evil aliens and you will have to save as many planets as you can to help restore the peace. ");
+                System.out.println("Your galaxy was invaded by evil aliens and you have to save as many planets as you can to help restore the peace. ");
 
                 System.out.println("\nEnter your name:");
                 String name = sc.next();
@@ -63,7 +63,7 @@ import java.util.ArrayList;
                         System.out.println("You decide to explore this place.");
                         System.out.println("You see a enemy " + " in the wild ");
                     }
-                    ch.setHP(0); //temp
+                    ch.setHP(ch.getHP()-1); //temp
                 }
             }
         }
