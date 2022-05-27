@@ -59,9 +59,12 @@ import java.util.ArrayList;
                                 System.out.println("You have decided to go west.");
                                 break;
                         }
+                      
                         System.out.println("\nAfter some time, you discover " + Planet.randomPlace());
                         System.out.println("You decide to explore this place.");
-                        System.out.println("You see a enemy " + " in the wild ");
+                        
+                        Enemy.battle();
+                        
                     }
                     ch.setHP(ch.getHP()-1); //temp
                 }
