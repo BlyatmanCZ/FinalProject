@@ -1,12 +1,14 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class Planet {
 
     static Random rn = new Random();
+    static Scanner sc = new Scanner(System.in);
 
     static String[] planets = {"Etheshan","Chuluturn","Utov","Dao R25",
             "Thamuinides","Dypso T0","Ingend",
-            "Bitcein O9","Kokenbels","Utopianas",
+            "Bitcein O9","Koknbelss","Utopianas",
             "Thichi EQO","Garvis V6","Xennion",
             "Emzuch XY5","Strepaturn","Zigantsus"};
 
@@ -49,15 +51,45 @@ public class Planet {
             West = "";
         }
 
+        if(N && S && E && W){
+            System.out.println("You decide to explore the planet.");
+        }else {
+            System.out.println("You decide to explore the planet in some other direction.");
+        }
         System.out.println("\nYou have a choice to go:");
         System.out.println(North + South + East + West);
         System.out.println("Which direction are you going?");
+
     }
 
-    static String[] places = {"a temple", "a crashed spaceship", "city ruins", "a hostile watchtower"};
+    static String[] battlePlaces = {"a temple", "a crashed spaceship", "city ruins", "a hostile watchtower", "a hostile fortress"};
 
-    static String randomPlace() {   //Vybere nahodnou lokaci z pole Stringu
-        int randomNum3 = rn.nextInt(places.length);
-        return places[randomNum3];
+    static String randomBattlePlace() {   //Vybere nahodnou lokaci z pole Stringu
+        int randomNum3 = rn.nextInt(battlePlaces.length);
+        return battlePlaces[randomNum3];
+    }
+    static void friendlyScientist(Character ch, Item activeItem, int maxHP){ //Metoda pro pratelskeho vedce, ktery se muze na planetach nachazet
+        int rnScientistNum = rn.nextInt(3);
+        System.out.println("\nAfter some time exploring, you have met a friendly scientist.");
+        if(rnScientistNum == 0) {
+            System.out.println("The scientist gave you a free health potion for your journey on this planet.");
+            ch.sethPotion(ch.gethPotion()+1);
+            System.out.println("You now have " + ch.gethPotion() + " health potions in your inventory.");
+        }else if(rnScientistNum == 1){
+            System.out.println("The scientist gave you a free strength potion for your journey on this planet.");
+            ch.setsPotion(ch.getsPotion()+1);
+            System.out.println("You now have " + ch.getsPotion() + " strength potions in your inventory.");
+        }else {
+            System.out.println("The scientist gave you a free chest with a random item inside.");
+            System.out.println("Do you want to open this chest? \n1) Yes \n2) No");
+            int YNChoice = sc.nextInt();
+            if(YNChoice == 1){
+                Item.openChest(activeItem, ch, maxHP);
+            }else {
+                System.out.println("You have declined a free chest from the scientist.");
+            }
+        }
+        System.out.println("\nYou return to your landing site.");
+
     }
 }

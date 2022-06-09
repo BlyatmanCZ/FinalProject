@@ -8,8 +8,8 @@ public class Enemy extends Character{
 
     private String name;
 
-    public Enemy(int HP, int strength, String name) {
-        super(HP, strength);
+    public Enemy(int HP, int strength, String name, int score) {
+        super(HP, strength, score);
         this.name = name;
     }
 
@@ -21,71 +21,117 @@ public class Enemy extends Character{
         this.name = name;
     }
     
-    static public Enemy[] enemies = { new Enemy(rn.nextInt(10)+10, rn.nextInt(10)+5, "Alien soldier"), new Enemy(rn.nextInt(7)+15, rn.nextInt(7)+10, "Enemy scientist"),
-    		new Enemy(rn.nextInt(5)+13,rn.nextInt(10)+5, "Alien hound"), new Enemy(rn.nextInt(10)+17, rn.nextInt(10)+5, "Enemy machine"),
-    		new Enemy(rn.nextInt(7)+15, rn.nextInt(10)+5, "Enemy Juggernaut"), new Enemy(rn.nextInt(10)+20,rn.nextInt(5)+5,"Unkown alien")
+    static public Enemy[] enemies = { // pole objeku nepratel, na ktere muze hrac narazit
+            new Enemy(rn.nextInt(15)+20, rn.nextInt(5)+8, "Alien soldier", 150),
+            new Enemy(rn.nextInt(10)+20, rn.nextInt(3)+8, "Enemy scientist",100),
+    		new Enemy(rn.nextInt(7)+20,rn.nextInt(7)+8, "Alien hound",100),
+            new Enemy(rn.nextInt(20)+20, rn.nextInt(8)+8, "Enemy machine",250),
+    		new Enemy(rn.nextInt(10)+20, rn.nextInt(8)+8, "Enemy Juggernaut",200),
+            new Enemy(rn.nextInt(15)+20,rn.nextInt(6)+8,"Unknown alien",200)
     		
     };
     
-    static public void battle(Character ch) {
-    	int rnEnemyNum = rn.nextInt(enemies.length);
+    static public void battle(Character ch, int maxHP) { //Metoda pro narazeni na nepritele a nasledny souboj
+        System.out.println("\nAfter some time, you discover " + Planet.randomBattlePlace());
+        System.out.println("You decide to explore this place.");
 
-    	System.out.println("You see a " + enemies[rnEnemyNum].getName() + " in the wild ");
-        int temp = enemies[rnEnemyNum].getHP();
+        int chance = rn.nextInt(10);
+        if(chance > 1) {
+            int rnEnemyNum = rn.nextInt(enemies.length);
+            System.out.println("\nYou see a " + enemies[rnEnemyNum].getName() + " in the wild ");
+            System.out.println("You have " + ch.getHP() + "HP. ");
+            int temp = enemies[rnEnemyNum].getHP();
+            boolean run = false;
+            int sPotionUsed = 0;
 
-        while(enemies[rnEnemyNum].getHP() > 0 && ch.getHP() > 0) {
-            System.out.println("\nWhat do you want to do?");
-            System.out.println("1) Attack \n2) Health potion (" + ch.gethPotion() + ") \n3) Strength potion (" + ch.getsPotion() + ") \n4) Run away");
-            System.out.println();
-            int attChoice = sc.nextInt();
-            switch (attChoice) {
-                case 1:
-                    System.out.println("You have decided to attack the enemy.");
-                    System.out.println("\nYou attack first.");
-                    enemies[rnEnemyNum].setHP(enemies[rnEnemyNum].getHP()-ch.getStrength());
-                    System.out.println("You have dealt " + ch.getStrength() + " damage to the " + enemies[rnEnemyNum].getName());
-                    if(enemies[rnEnemyNum].getHP() > 0) {
-                        System.out.println("\n" + enemies[rnEnemyNum].getName() + " attacks you.");
-                        ch.setHP(ch.getHP()-enemies[rnEnemyNum].getStrength());
-                        System.out.println("The " + enemies[rnEnemyNum].getName() + " has dealt "+ enemies[rnEnemyNum].getStrength() + " damage to you.");
-                        if(ch.getHP() > 0){
-                            System.out.println("You have " + ch.getHP() + " HP remaining.");
+            while (enemies[rnEnemyNum].getHP() > 0 && ch.getHP() > 0 && !run) {
+                System.out.println("\nWhat do you want to do?");
+                System.out.println("1) Attack \n2) Health potion (" + ch.gethPotion() + ") \n3) Strength potion (" + ch.getsPotion() + ") \n4) Run away");
+                System.out.println();
+                int attChoice = sc.nextInt();
+                switch (attChoice) {
+                    case 1:
+                        System.out.println("You have decided to attack the enemy.");
+                        System.out.println("\nYou attack first.");
+
+                        int rnCriticalHitNum = rn.nextInt(30)+1;
+                        if(rnCriticalHitNum < ch.getLuck()){
+                            enemies[rnEnemyNum].setHP(enemies[rnEnemyNum].getHP() - (ch.getStrength()*2));
+                            System.out.println("Critical hit!");
+                            System.out.println("You have dealt " + (ch.getStrength()*2) + " damage to the " + enemies[rnEnemyNum].getName());
                         }else{
-                            System.out.println("You have died.");
+                            enemies[rnEnemyNum].setHP(enemies[rnEnemyNum].getHP() - ch.getStrength());
+                            System.out.println("You have dealt " + ch.getStrength() + " damage to the " + enemies[rnEnemyNum].getName());
                         }
-                    }else {
-                        System.out.println("You have successfully killed the enemy.");
-                    }
-                    break;
-                case 2:
-                    if(ch.gethPotion() > 0){
-                        System.out.println("You have decided to drink a health potion.");
-                        ch.setHP(ch.getHP()+5);
-                        System.out.println("You have gained 5 HP and now you have " + ch.getHP() + "HP.");
-                        ch.sethPotion(ch.gethPotion()-1);
-                        System.out.println("You have " + ch.gethPotion() + " health potions remaining.");
-                    }else{
-                        System.out.println("Sadly, you don't have any more health potions.");
-                    }
-                    break;
-                case 3:
-                    if(ch.getsPotion() > 0){
-                        System.out.println("You have decided to drink a strength potion.");
-                        ch.setStrength(ch.getStrength()+5);
-                        System.out.println("You have gained 5 ATK and now you have " + ch.getStrength() + "HP.");
-                        ch.setsPotion(ch.getsPotion()-1);
-                        System.out.println("You have " + ch.getsPotion() + " strength potions remaining.");
-                    }else{
-                        System.out.println("Sadly, you don't have any more strength potions.");
-                    }
-                    break;
-                case 4:
-                    System.out.println("You have decided to run away.");
-                    break;
+
+
+                        if (enemies[rnEnemyNum].getHP() > 0) {
+                            System.out.println("The enemy has " + enemies[rnEnemyNum].getHP() + "HP remaining.");
+                            System.out.println("\n" + enemies[rnEnemyNum].getName() + " attacks you.");
+                            ch.setHP(ch.getHP() - enemies[rnEnemyNum].getStrength());
+                            System.out.println("The " + enemies[rnEnemyNum].getName() + " has dealt " + enemies[rnEnemyNum].getStrength() + " damage to you.");
+                            if (ch.getHP() > 0) {
+                                System.out.println("You have " + ch.getHP() + "HP remaining.");
+                            } else {
+                                System.out.println("\nGAME OVER");
+                                System.out.println("You are dead.");
+                                System.out.println("\nYour total score: " + ch.getScore());
+                            }
+                        } else {
+                            System.out.println("You have successfully killed the enemy.");
+                            int tmp = rn.nextInt(20)+11;
+                            ch.setCredit(ch.getCredit() + tmp);
+                            ch.setScore(ch.getScore() + enemies[rnEnemyNum].getScore());
+                            System.out.println("\nYou have received " + tmp + " Credits and " + enemies[rnEnemyNum].getScore() + " score for defeating the enemy.");
+                            ch.setHP(ch.getHP() + 10);
+                            if (ch.getHP() > maxHP) {
+                                ch.setHP(maxHP);
+                            }
+                            System.out.println("You have also recovered 10 health points for defeating the enemy.");
+                        }
+                        break;
+                    case 2:
+                        if (ch.gethPotion() > 0) {
+                            System.out.println("You have decided to drink a health potion.");
+                            ch.setHP(ch.getHP() + 10);
+                            System.out.println("You have gained 10 HP and now you have " + ch.getHP() + "HP.");
+                            ch.sethPotion(ch.gethPotion() - 1);
+                            System.out.println("You have " + ch.gethPotion() + " health potions remaining.");
+                        } else {
+                            System.out.println("Sadly, you don't have any more health potions.");
+                        }
+                        break;
+                    case 3:
+                        if (ch.getsPotion() > 0) {
+                            System.out.println("You have decided to drink a strength potion.");
+                            ch.setStrength(ch.getStrength() + 10);
+                            System.out.println("You have gained 10 ATK and now you have " + ch.getStrength() + "ATK.");
+                            ch.setsPotion(ch.getsPotion() - 1);
+                            System.out.println("You have " + ch.getsPotion() + " strength potions remaining.");
+                            sPotionUsed++;
+                        } else {
+                            System.out.println("Sadly, you don't have any more strength potions.");
+                        }
+                        break;
+                    case 4:
+                        System.out.println("You have decided to run away.");
+                        run = true;
+                        System.out.println("You haven't received any Credits or score for running away from the enemy.");
+                        break;
+                }
             }
+            if(enemies[rnEnemyNum].getHP()<1){
+                enemies[rnEnemyNum].setHP(temp);
         }
-        if(enemies[rnEnemyNum].getHP()==0){
-            enemies[rnEnemyNum].setHP(temp);
+            run = false;
+            ch.setStrength(ch.getStrength()-(10*sPotionUsed));
+        }else{
+            System.out.println("\nYou have been exploring for a while now, but you don't see anybody.");
+            System.out.println("This place seems abandoned.");
+        }
+
+        if(ch.getHP()>0){
+            System.out.println("\nYou return to your landing site.");
         }
     }
 }
