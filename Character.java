@@ -77,7 +77,7 @@ public class Character {
                 System.out.println("You have successfully chosen Soldier as your character");
                 break;
             case 2:
-                setHP(1);
+                setHP(15);
                 setStrength(8);
                 setLuck(15);
                 System.out.println("You have successfully chosen Scientist as your character");
