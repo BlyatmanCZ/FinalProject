@@ -7,6 +7,7 @@ public class Character {
     protected int sPotion;
     protected int credit;
     protected int score;
+    protected int maxHP;
 
     public int getHP() {
         return HP;
@@ -47,12 +48,17 @@ public class Character {
     public int getScore() {
         return score;
     }
-
     public void setScore(int score) {
         this.score = score;
     }
+    public int getMaxHP() {
+        return maxHP;
+    }
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
+    }
 
-    public Character(int HP, int strength, int luck, int hPotion, int sPotion, int credit, int score) {
+    public Character(int HP, int strength, int luck, int hPotion, int sPotion, int credit, int score, int maxHP) {
         this.HP = HP;
         this.strength = strength;
         this.luck = luck;
@@ -60,6 +66,7 @@ public class Character {
         this.sPotion = sPotion;
         this.credit = credit;
         this.score = score;
+        this.maxHP = maxHP;
     }
 
     public Character(int HP, int strength, int score) {
@@ -68,24 +75,27 @@ public class Character {
         this.score = score;
     }
 
-    public void charChoice(int choice) {   //Nastavi hodnoty charakteru podle vyberu
+    public void charChoice(int choice) {  //Sets character values based on which character the player decide to play as
         switch (choice) {
-            case 1:
+            case 1: //Soldier
                 setHP(20);
                 setStrength(10);
                 setLuck(10);
+                setMaxHP(20);
                 System.out.println("You have successfully chosen Soldier as your character");
                 break;
-            case 2:
+            case 2: //Scientist
                 setHP(15);
                 setStrength(8);
                 setLuck(15);
+                setMaxHP(15);
                 System.out.println("You have successfully chosen Scientist as your character");
                 break;
-            case 3:
+            case 3: //Juggernaut
                 setHP(25);
-                setStrength(15);
+                setStrength(13);
                 setLuck(5);
+                setMaxHP(25);
                 System.out.println("You have successfully chosen Juggernaut as your character");
                 break;
 
